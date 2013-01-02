@@ -1,0 +1,135 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <div class="pull-left details_block">
+        <h2>Store</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Size</dt>
+            <dd>{{ indice.store.size }}</dd>
+
+            <dt>Size in bytes</dt>
+            <dd>{{ indice.store.size_in_bytes }}</dd>
+
+            <dt>Throttle Time</dt>
+            <dd>{{ indice.store.throttle_time }}</dd>
+
+            <dt>Throttle Time In Millis</dt>
+            <dd>{{ indice.store.throttle_time_in_millis }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Docs</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Count</dt>
+            <dd>{{ indice.docs.count }}</dd>
+
+            <dt>Deleted</dt>
+            <dd>{{ indice.docs.deleted }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Indexing</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Index Total</dt>
+            <dd>{{ indice.indexing.index_total }}</dd>
+
+            <dt>Index Time</dt>
+            <dd>{{ indice.indexing.index_time }}</dd>
+
+            <dt>Index Time In Millis</dt>
+            <dd>{{ indice.indexing.index_time_in_millis }}</dd>
+
+            <dt>Index Current</dt>
+            <dd>{{ indice.indexing.index_current }}</dd>
+
+            <dt>Delete Total</dt>
+            <dd>{{ indice.indexing.delete_total }}</dd>
+
+            <dt>Delete Time</dt>
+            <dd>{{ indice.indexing.delete_time }}</dd>
+
+            <dt>Delete Time In Millis</dt>
+            <dd>{{ indice.indexing.delete_time_in_millis }}</dd>
+
+            <dt>Delete Current</dt>
+            <dd>{{ indice.indexing.delete_current }}</dd>
+        </dl>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="pull-left details_block">
+        <h2>Get</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Total</dt>
+            <dd>{{ indice.get.total }}</dd>
+
+            <dt>Time</dt>
+            <dd>{{ indice.get.time }}</dd>
+
+            <dt>Time In Millis</dt>
+            <dd>{{ indice.get.time_in_millis }}</dd>
+
+            <dt>Exists Total</dt>
+            <dd>{{ indice.get.exists_total }}</dd>
+
+            <dt>Exists Time</dt>
+            <dd>{{ indice.get.exists_time }}</dd>
+
+            <dt>Exists Time In Millis</dt>
+            <dd>{{ indice.get.exists_time_in_millis }}</dd>
+
+            <dt>Missing Total</dt>
+            <dd>{{ indice.get.missing_total }}</dd>
+
+            <dt>Missing Time</dt>
+            <dd>{{ indice.get.missing_time }}</dd>
+
+            <dt>Missing Time In Millis</dt>
+            <dd>{{ indice.get.missing_time_in_millis }}</dd>
+
+            <dt>Current</dt>
+            <dd>{{ indice.get.current }}</dd>
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Search</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Query Total</dt>
+            <dd>{{ indice.search.query_total }}</dd>
+
+            <dt>Query Time</dt>
+            <dd>{{ indice.search.query_time }}</dd>
+
+            <dt>Query Time In Millis</dt>
+            <dd>{{ indice.search.query_time_in_millis }}</dd>
+
+            <dt>Query Current</dt>
+            <dd>{{ indice.search.query_current }}</dd>
+
+            <dt>Fetch Total</dt>
+            <dd>{{ indice.search.fetch_total }}</dd>
+
+            <dt>Fetch Time</dt>
+            <dd>{{ indice.search.fetch_time }}</dd>
+
+            <dt>Fetch Time In Millis</dt>
+            <dd>{{ indice.search.fetch_time_in_millis }}</dd>
+
+            <dt>Fetch Current</dt>
+            <dd>{{ indice.search.fetch_current }}</dd>
+        </dl>
+    </div>
+
+{% endblock %}

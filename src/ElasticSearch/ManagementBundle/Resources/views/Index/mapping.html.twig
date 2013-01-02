@@ -1,0 +1,16 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+
+{% block body %}
+
+    {% for type_name,type in types_mapping %}
+        <div class="pull-left details_block">
+            <h3>{{ type_name }}</h3>
+            <ul class="unstyled">
+                {% for property,mapping in type.properties %}
+                    <li>{{ property }} ({{ mapping.type }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+{% endblock %}

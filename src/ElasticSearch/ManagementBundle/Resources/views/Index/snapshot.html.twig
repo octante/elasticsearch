@@ -1,0 +1,42 @@
+<!-- Modal -->
+<div id="windowModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Modal-label" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Snapshot {{ indice_name }}</h3>
+    </div>
+    <div class="modal-body">
+        {% if show_result == true %}
+            {% if error == true %}
+                <div class="alert alert-error">
+                    An error occurred
+                </div>
+            {% else %}
+                <div class="alert alert-success">
+                    Snapshot OK
+                </div>
+                <p>Shards information: </p>
+                <dl class="dl-horizontal">
+
+                    <dt>Total: </dt>
+                    <dd>{{ shards.total }}</dd>
+
+                    <dt>Successful: </dt>
+                    <dd>{{ shards.successful }}</dd>
+
+                    <dt>Failed: </dt>
+                    <dd>{{ shards.failed }}</dd>
+
+                </dl>
+            {% endif %}
+            <p></p>
+        {% else %}
+            <p>Are you sure you want to snapshot this indice?</p>
+        {% endif %}
+    </div>
+    {% if show_result == false %}
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary modal_button" data-indice="{{ indice_name }}">Snapshot</button>
+        </div>
+    {% endif %}
+</div>

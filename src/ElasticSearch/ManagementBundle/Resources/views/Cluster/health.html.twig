@@ -1,0 +1,43 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <dl class="dl-horizontal">
+        <dt>Cluster name:</dt>
+        <dd>{{ cluster_health.cluster_name }}</dd>
+
+        <dt>Status:</dt>
+        <dd><span class="bullet {{ cluster_health.status }}"></span></dd>
+
+        <dt>Timed Out:</dt>
+        <dd>
+            {% if cluster_health.timed_out == false %}
+                No
+            {% else %}
+                cluster_health.timed_out
+            {% endif %}
+        </dd>
+
+        <dt>Number of nodes:</dt>
+        <dd>{{ cluster_health.number_of_nodes }}</dd>
+
+        <dt>Number of data nodes:</dt>
+        <dd>{{ cluster_health.number_of_data_nodes }}</dd>
+
+        <dt>Active primary shards:</dt>
+        <dd>{{ cluster_health.active_primary_shards }}</dd>
+
+        <dt>Active shards:</dt>
+        <dd>{{ cluster_health.active_shards }}</dd>
+
+        <dt>Relocating shards:</dt>
+        <dd>{{ cluster_health.relocating_shards }}</dd>
+
+        <dt>Initializing shards:</dt>
+        <dd>{{ cluster_health.initializing_shards }}</dd>
+
+        <dt>Unassigned shards:</dt>
+        <dd>{{ cluster_health.unassigned_shards }}</dd>
+    </dl>
+
+{% endblock %}

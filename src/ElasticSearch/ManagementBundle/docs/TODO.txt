@@ -1,0 +1,5 @@
+TODO
+
+- AJAX pagination in queries module
+- Refactoring of Queries module code
+- Explain module (convert to an option of queries module)

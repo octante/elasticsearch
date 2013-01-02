@@ -1,0 +1,17 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <ol>
+        {% for node in nodes %}
+            <li>{{ node }}
+                [<a href="node_information?node={{ node }}">Information</a>]
+                [<a href="node_stats?node={{ node }}">stats</a>]
+                [<a href="node_hot_threads?node={{ node }}">hot threads</a>]
+                <!--[<a href="node_shutdown?node={{ node }}">shutdown</a>]-->
+            </li>
+        {% endfor %}
+
+    </ol>
+
+{% endblock %}

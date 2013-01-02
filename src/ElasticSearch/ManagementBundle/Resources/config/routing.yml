@@ -1,0 +1,63 @@
+elastic_search_management_homepage:
+    pattern: /
+    defaults: { _controller: ElasticSearchManagementBundle:Default:index }
+
+# Cluster
+elastic_search_management_cluster_state:
+    pattern: /cluster_state
+    defaults: { _controller: ElasticSearchManagementBundle:Cluster:state }
+
+elastic_search_management_cluster_health:
+    pattern: /cluster_health
+    defaults: { _controller: ElasticSearchManagementBundle:Cluster:health }
+
+# Node
+elastic_search_management_node_list:
+    pattern: /nodes_list
+    defaults: { _controller: ElasticSearchManagementBundle:Node:list }
+
+elastic_search_management_node_information:
+    pattern: /node_information
+    defaults: { _controller: ElasticSearchManagementBundle:Node:info }
+
+elastic_search_management_node_stats:
+    pattern: /node_stats
+    defaults: { _controller: ElasticSearchManagementBundle:Node:stats }
+
+elastic_search_management_node_hot_threads:
+    pattern: /node_hot_threads
+    defaults: { _controller: ElasticSearchManagementBundle:Node:hotthreads }
+
+elastic_search_management_node_shutdown:
+    pattern: /node_shutdown
+    defaults: { _controller: ElasticSearchManagementBundle:Node:shutdown }
+
+# Indices
+elastic_search_management_indices_list:
+    pattern: /indices_list
+    defaults: { _controller: ElasticSearchManagementBundle:Index:list }
+
+elastic_search_management_indice_stats:
+    pattern: /indice_stats
+    defaults: { _controller: ElasticSearchManagementBundle:Index:stats }
+
+elastic_search_management_indice_mapping:
+    pattern: /indice_mapping
+    defaults: { _controller: ElasticSearchManagementBundle:Index:mapping }
+
+elastic_search_management_indice_optimize:
+    pattern: /indice_optimize
+    defaults: { _controller: ElasticSearchManagementBundle:Index:optimize }
+
+elastic_search_management_indice_snapshot:
+    pattern: /indice_snapshot
+    defaults: { _controller: ElasticSearchManagementBundle:Index:snapshot }
+
+elastic_search_management_indice_delete:
+    pattern: /indice_delete
+    defaults: { _controller: ElasticSearchManagementBundle:Index:delete }
+
+# Query
+elastic_search_management_Query_query:
+    pattern: /query_tool
+    defaults: { _controller: ElasticSearchManagementBundle:Query:query }

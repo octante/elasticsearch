@@ -1,0 +1,249 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <div class="pull-left details_block">
+        <h2>Store</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Size</dt>
+            <dd>{{ node.store.size }}</dd>
+
+            <dt>Size in bytes</dt>
+            <dd>{{ node.store.size_in_bytes }}</dd>
+
+            <dt>Throttle Time</dt>
+            <dd>{{ node.store.throttle_time }}</dd>
+
+            <dt>Throttle Time In Millis</dt>
+            <dd>{{ node.store.throttle_time_in_millis }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Docs</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Count</dt>
+            <dd>{{ node.docs.count }}</dd>
+
+            <dt>Deleted</dt>
+            <dd>{{ node.docs.deleted }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Indexing</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Index Total</dt>
+            <dd>{{ node.indexing.index_total }}</dd>
+
+            <dt>Index Time</dt>
+            <dd>{{ node.indexing.index_time }}</dd>
+
+            <dt>Index Time In Millis</dt>
+            <dd>{{ node.indexing.index_time_in_millis }}</dd>
+
+            <dt>Index Current</dt>
+            <dd>{{ node.indexing.index_current }}</dd>
+
+            <dt>Delete Total</dt>
+            <dd>{{ node.indexing.delete_total }}</dd>
+
+            <dt>Delete Time</dt>
+            <dd>{{ node.indexing.delete_time }}</dd>
+
+            <dt>Delete Time In Millis</dt>
+            <dd>{{ node.indexing.delete_time_in_millis }}</dd>
+
+            <dt>Delete Current</dt>
+            <dd>{{ node.indexing.delete_current }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="pull-left details_block">
+        <h2>Get</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Total</dt>
+            <dd>{{ node.get.total }}</dd>
+
+            <dt>Time</dt>
+            <dd>{{ node.get.time }}</dd>
+
+            <dt>Time In Millis</dt>
+            <dd>{{ node.get.time_in_millis }}</dd>
+
+            <dt>Exists Total</dt>
+            <dd>{{ node.get.exists_total }}</dd>
+
+            <dt>Exists Time</dt>
+            <dd>{{ node.get.exists_time }}</dd>
+
+            <dt>Exists Time In Millis</dt>
+            <dd>{{ node.get.exists_time_in_millis }}</dd>
+
+            <dt>Missing Total</dt>
+            <dd>{{ node.get.missing_total }}</dd>
+
+            <dt>Missing Time</dt>
+            <dd>{{ node.get.missing_time }}</dd>
+
+            <dt>Missing Time In Millis</dt>
+            <dd>{{ node.get.missing_time_in_millis }}</dd>
+
+            <dt>Current</dt>
+            <dd>{{ node.get.current }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Search</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Query Total</dt>
+            <dd>{{ node.search.query_total }}</dd>
+
+            <dt>Query Time</dt>
+            <dd>{{ node.search.query_time }}</dd>
+
+            <dt>Query Time In Millis</dt>
+            <dd>{{ node.search.query_time_in_millis }}</dd>
+
+            <dt>Query Current</dt>
+            <dd>{{ node.search.query_current }}</dd>
+
+            <dt>Fetch Total</dt>
+            <dd>{{ node.search.fetch_total }}</dd>
+
+            <dt>Fetch Time</dt>
+            <dd>{{ node.search.fetch_time }}</dd>
+
+            <dt>Fetch Time In Millis</dt>
+            <dd>{{ node.search.fetch_time_in_millis }}</dd>
+
+            <dt>Fetch Current</dt>
+            <dd>{{ node.search.fetch_current }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Cache</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Field Evictions</dt>
+            <dd>{{ node.cache.field_evictions }}</dd>
+
+            <dt>Field Size</dt>
+            <dd>{{ node.cache.field_size }}</dd>
+
+            <dt>Field Size In Bytes</dt>
+            <dd>{{ node.cache.field_size_in_bytes }}</dd>
+
+            <dt>Field Count</dt>
+            <dd>{{ node.cache.filter_count }}</dd>
+
+            <dt>Filter Evictions</dt>
+            <dd>{{ node.cache.filter_evictions }}</dd>
+
+            <dt>Filter Size</dt>
+            <dd>{{ node.cache.filter_size }}</dd>
+
+            <dt>Filter Size In Bytes</dt>
+            <dd>{{ node.cache.filter_size_in_bytes }}</dd>
+
+            <dt>Bloom Size</dt>
+            <dd>{{ node.cache.bloom_size }}</dd>
+
+            <dt>Bloom Size In Bytes</dt>
+            <dd>{{ node.cache.bloom_size_in_bytes }}</dd>
+
+            <dt>Id Cache Size</dt>
+            <dd>{{ node.cache.id_cache_size }}</dd>
+
+            <dt>Id Cache Size In Bytes</dt>
+            <dd>{{ node.cache.id_cache_size_in_bytes }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="clear"></div>
+
+    <div class="pull-left details_block">
+        <h2>Merges</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Current</dt>
+            <dd>{{ node.merges.current }}</dd>
+
+            <dt>Current Docs</dt>
+            <dd>{{ node.merges.current_docs }}</dd>
+
+            <dt>Current Size</dt>
+            <dd>{{ node.merges.current_size }}</dd>
+
+            <dt>Current Size In Bytes</dt>
+            <dd>{{ node.merges.current_size_in_bytes }}</dd>
+
+            <dt>Total</dt>
+            <dd>{{ node.merges.total }}</dd>
+
+            <dt>Total Time</dt>
+            <dd>{{ node.merges.total_time }}</dd>
+
+            <dt>Total Time In Millis</dt>
+            <dd>{{ node.merges.total_time_in_millis }}</dd>
+
+            <dt>Total Docs</dt>
+            <dd>{{ node.merges.total_docs }}</dd>
+
+            <dt>Total Size</dt>
+            <dd>{{ node.merges.total_size }}</dd>
+
+            <dt>Total Size In Bytes</dt>
+            <dd>{{ node.merges.total_size_in_bytes }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Refresh</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Total</dt>
+            <dd>{{ node.refresh.total }}</dd>
+
+            <dt>Total Time</dt>
+            <dd>{{ node.refresh.total_time }}</dd>
+
+            <dt>Total Time In Millis</dt>
+            <dd>{{ node.refresh.total_time_in_millis }}</dd>
+
+        </dl>
+    </div>
+
+    <div class="pull-left details_block">
+        <h2>Flush</h2>
+        <dl class="dl-horizontal">
+
+            <dt>Total</dt>
+            <dd>{{ node.flush.total }}</dd>
+
+            <dt>Total Time</dt>
+            <dd>{{ node.flush.total_time }}</dd>
+
+            <dt>Total Time In Millis</dt>
+            <dd>{{ node.flush.total_time_in_millis }}</dd>
+
+        </dl>
+    </div>
+
+{% endblock %}

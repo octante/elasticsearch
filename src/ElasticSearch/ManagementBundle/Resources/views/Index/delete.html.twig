@@ -1,0 +1,31 @@
+<!-- Modal -->
+<div id="windowModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="Optimize-label" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Remove {{ indice_name }}</h3>
+    </div>
+    <div class="modal-body">
+        {% if show_result == true %}
+            {% if error == true %}
+                <div class="alert alert-error">
+                    An error occurred
+                </div>
+            {% else %}
+                <div class="alert alert-success">
+                    Indice <strong>{{ indice_name }}</strong> removed
+                </div>
+
+            {% endif %}
+            <p></p>
+        {% else %}
+            <p>Are you sure you want to remove this indice?</p>
+        {% endif %}
+    </div>
+
+    {% if show_result == false %}
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary modal_button" data-indice="{{ indice_name }}">Remove</button>
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,104 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+
+{% block title %} Cluster State {% endblock %}
+
+{% block body %}
+
+    <dl class="dl-horizontal">
+        <dt>Cluster name:</dt>
+        <dd>{{ cluster_state.cluster_name }}</dd>
+
+        <dt>Master node:</dt>
+        <dd>{{ cluster_state.master_node }}</dd>
+
+        <dt>Blocks:</dt>
+        <dd>
+            {% if cluster_state.blocks|length > 0 %}
+                Exists blocks
+            {% else %}
+                No blocks
+            {% endif %}
+        </dd>
+    </dl>
+
+    <h2>Nodes:</h2>
+    {% for key, node in cluster_state.nodes %}
+        <dl class="dl-horizontal">
+            <dt>Id:</dt>
+            <dd>{{ key }}</dd>
+
+            <dt>Name: </dt>
+            <dd>{{ node.name }}</dd>
+
+            <dt>Transport address: </dt>
+            <dd>{{ node.transport_address }}</dd>
+
+            <dt>Attributes: </dt>
+            <dd>
+                {% if node.attributes|length > 0 %}
+                    <ul class="unstyled">
+                        {% for attribute in node.attributes %}
+                            <li>{{ attribute }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    No attributes
+                {% endif %}
+            </dd>
+        </dl>
+    {% endfor %}
+
+    <h2>Indices</h2>
+    {% for key, indice in cluster_state.indices %}
+        <dl class="dl-horizontal">
+            <dt>Name:</dt>
+            <dd>{{ key }}</dd>
+
+            <dt>State: </dt>
+            <dd>{{ indice.state }}</dd>
+
+            <dt>Settings: </dt>
+            <dd>
+                {% if indice.settings|length > 0 %}
+                    <ul class="unstyled">
+                        {% for setting_name, setting_value in indice.settings %}
+                            <li>{{ setting_name }}: {{ setting_value}}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    No Settings
+                {% endif %}
+            </dd>
+
+            <dt>Mappings: </dt>
+            <dd>
+                {% if indice.mappings|length > 0 %}
+                    <ul class="unstyled">
+                        {% for type_name, mapping in indice.mappings %}
+                            <li>{{ type_name }}</li>
+                            {% for mapping_key, mapping_values in mapping.properties %}
+                                <ul class="list-style">
+                                    <li>{{ mapping_key }} ({{ mapping_values.type }})</li>
+                                </ul>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    No Mapping values
+                {% endif %}
+            </dd>
+
+            <dt>Shards: </dt>
+            {% if cluster_state.routing_table_indices[key]|length > 0 %}
+                <dd>
+                    <ul class="unstyled">
+                        <li><a href="/indice_shards?indice={{ key }}">View Shards</a></li>
+                    </ul>
+                </dd>
+            {% else %}
+                <dd>No Shards</dd>
+            {% endif %}
+        </dl>
+    {% endfor %}
+
+{% endblock %}

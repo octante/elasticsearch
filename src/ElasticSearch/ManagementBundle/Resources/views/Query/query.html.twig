@@ -1,0 +1,59 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+{% import 'ElasticSearchManagementBundle::Helpers/form.html.twig' as forms %}
+
+{% block body %}
+
+    <div class="right">
+        <a href="#" class="toggle_box" data-box="query_tool">Show Query Tool</a> | <a href="#" class="toggle_box" data-box="query_examples">Query Examples</a>
+    </div>
+
+    <div class="clear"></div>
+
+    <div id="query_examples" class="hidden">
+        <p>Simple example</p>
+        <pre>{
+                "fields":["nam","dt"],
+                "query":{
+                        "field":{
+                        "nam":"Iron"
+                    }
+                },
+                "from": 2,
+                "size": 3
+            }
+        </pre>
+    </div>
+
+    <div id="query_tool" {% if results|length > 0 %}class="hidden" {% endif %}>
+        <form action="query_tool" method="POST">
+            Fields:<br/>
+            {{ forms.textarea('query', query, 15) }}
+
+            <button class="btn btn-primary">Send Query</button>
+        </form>
+    </div>
+
+    {% if results|length > 0 %}
+        <h2>Results</h2>
+        <table class="table">
+            <tr>
+                {% for field in fields %}
+                    <th>{{ field|capitalize }}</th>
+                {% endfor %}
+            </tr>
+
+            {% for result in results %}
+                <tr>
+                    {% for field in fields %}
+                        <td>
+                            {% if result[field] is not null %}
+                                {{ result[field] }}
+                            {% endif %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+{% endblock %}

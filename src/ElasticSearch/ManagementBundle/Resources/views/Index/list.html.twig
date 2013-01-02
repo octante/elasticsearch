@@ -1,0 +1,18 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <ol>
+        {% for indice in indices %}
+            <li>{{ indice }}
+                [<a href="indice_stats?indice={{ indice }}">Stats</a>]
+                [<a href="indice_mapping?indice={{ indice }}">Indice Mappings</a>]
+                [<a href="indice_optimize?indice={{ indice }}" class="show_model" data-callback="modalAction">Optimize</a>]
+                [<a href="indice_delete?indice={{ indice }}" class="show_model" data-callback="deleteAction">Delete</a>]
+            </li>
+        {% endfor %}
+    </ol>
+
+    <div id="modal_div"></div>
+
+{% endblock %}

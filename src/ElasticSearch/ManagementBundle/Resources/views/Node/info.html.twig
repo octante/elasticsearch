@@ -1,0 +1,22 @@
+{% extends 'ElasticSearchManagementBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <dl class="dl-horizontal">
+        <dt>Name</dt>
+        <dd>{{ node.name }}</dd>
+
+        <dt>Transport Address</dt>
+        <dd>{{ node.transport_address }}</dd>
+
+        <dt>Hostname</dt>
+        <dd>{{ node.hostname }}</dd>
+
+        <dt>Version</dt>
+        <dd>{{ node.version }}</dd>
+
+        <dt>Http Address</dt>
+        <dd>{{ node.http_address }}</dd>
+    </dl>
+
+{% endblock %}
