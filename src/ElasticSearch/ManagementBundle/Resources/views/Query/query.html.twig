@@ -4,7 +4,8 @@
 {% block body %}
 
     <div class="right">
-        <a href="#" class="toggle_box" data-box="query_tool">Show Query Tool</a> | <a href="#" class="toggle_box" data-box="query_examples">Query Examples</a>
+        <a href="#" class="toggle_box" data-box="query_examples">Query Examples</a> |
+        <a href="#" class="toggle_box" data-box="query_tool">Show Query Tool</a>
     </div>
 
     <div class="clear"></div>
@@ -25,16 +26,33 @@
     </div>
 
     <div id="query_tool" {% if results|length > 0 %}class="hidden" {% endif %}>
-        <form action="query_tool" method="POST">
-            Fields:<br/>
-            {{ forms.textarea('query', query, 15) }}
+        <div class="controls controls-row">
+            <form action="query_tool" method="POST">
+                <div class="span9">
+                    <label>Fields</label>
+                    {{ forms.textarea('query', query, 15) }}
+                </div>
+                <div class="span1">
+                    <label>From</label>
+                    <input class="input-mini" type="text" name="from" value="{{ from }}">
 
-            <button class="btn btn-primary">Send Query</button>
-        </form>
+                    <label>Limit</label>
+                    <input class="input-mini" type="text" name="limit" value="{{ limit }}">
+                </div>
+                <div class="clear"></div>
+                <button class="btn btn-primary">Send Query</button>
+            </form>
+        </div>
     </div>
 
     {% if results|length > 0 %}
+
         <h2>Results</h2>
+
+        <div class="pull-right">
+            {{ total }} {% if total == 1 %}result {% else %}results{% endif %}
+        </div>
+
         <table class="table">
             <tr>
                 {% for field in fields %}
@@ -54,6 +72,8 @@
                 </tr>
             {% endfor %}
         </table>
+    {% else %}
+        <p>No Results</p>
     {% endif %}
 
 {% endblock %}

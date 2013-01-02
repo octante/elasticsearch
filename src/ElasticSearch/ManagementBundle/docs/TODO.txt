@@ -3,3 +3,6 @@ TODO
 - AJAX pagination in queries module
 - Refactoring of Queries module code
 - Explain module (convert to an option of queries module)
+
+* Query module
+- Add indice and type selectboxes in query tool

@@ -13,12 +13,22 @@ use Elastica_Client;
 
 class QueryController extends Controller
 {
+    protected $aQuery;
+
     public function queryAction (Request $request)
     {
         $query = $request->request->get('query');
+        $from  = $request->request->get('from');
+        $limit = $request->request->get('limit');
         if ($query != '') {
-            $aQuery = json_decode($query, true);
-            $request = (new Query_Request(new Elastica_Client(), 'website/_search', 'POST', array(), $aQuery))->send()->getData();
+            $this->aQuery = json_decode($query, true);
+
+            if ($from != '')   $this->addExtraParams(array('from' => $from));
+            if ($limit != '')  $this->addExtraParams(array('size' => $limit));
+
+            $exists_fields = (isset($this->aQuery['fields']));
+
+            $request = (new Query_Request(new Elastica_Client(), 'website/_search', 'POST', array(), $this->aQuery))->send()->getData();
         }
 
         $page_params = array(
@@ -26,6 +36,8 @@ class QueryController extends Controller
             'query'         => $query,
             'tab'           => 'query',
             'page_title'    => 'Query Tool',
+            'from'          => $from,
+            'limit'         => $limit
         );
 
         $fields = array();
@@ -34,7 +46,7 @@ class QueryController extends Controller
             $total        = $request['hits']['total'];
             if ($total > 0 && count($hits) > 0) {
                 foreach ($hits as $key => $hit) {
-                    $results_list = isset($hit['_source']) ? $hit['_source'] : $hit['fields'];
+                    $results_list = (!$exists_fields) ? $hit['_source'] : $hit['fields'];
                     foreach ($results_list as $field => $value) {
                         $results[$key][$field] = $value;
                         $fields[] = $field;
@@ -52,5 +64,12 @@ class QueryController extends Controller
             $page_params['fields']  = $fields;
         }
         return $this->render('ElasticSearchManagementBundle:Query:query.html.twig', $page_params);
+    }
+
+    private function addExtraParams($params)
+    {
+        foreach ($params as $field => $value) {
+            $this->aQuery[$field] = $value;
+        }
     }
 }
