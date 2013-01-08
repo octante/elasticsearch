@@ -160,3 +160,7 @@ pre.hot_threads {
 textarea {
     width: 99%;
 }
+
+table td {
+    font-size: 12px;
+}

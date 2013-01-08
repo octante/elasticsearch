@@ -1,3 +1,12 @@
 {% macro textarea(name, value, rows, cols, class) %}
     <textarea name="{{ name }}" rows="{{ rows|default(10) }}" cols="{{ cols|default(40) }}" class="{{ class|default("") }}">{{ value|e }}</textarea>
 {% endmacro %}
+
+{% macro select(name, value, options) %}
+    <select name="{{ name }}">
+        <option value="">Choose...</option>
+        {% for field, option in options %}
+            <option value="{{ field }}" {% if value == field %}selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+    </select>
+{% endmacro %}

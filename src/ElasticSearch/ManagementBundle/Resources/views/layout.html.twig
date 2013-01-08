@@ -11,9 +11,11 @@
 
     {% javascripts '@ElasticSearchManagementBundle/Resources/public/js/jquery-1.8.3.min.js'
                     '@ElasticSearchManagementBundle/Resources/public/bootstrap/js/bootstrap.min.js'
-                    '@ElasticSearchManagementBundle/Resources/public/js/main.js'%}
+                    '@ElasticSearchManagementBundle/Resources/public/js/main.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+    {% block javascripts %}{% endblock %}
 </head>
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">

@@ -61,3 +61,7 @@ elastic_search_management_indice_delete:
 elastic_search_management_Query_query:
     pattern: /query_tool
     defaults: { _controller: ElasticSearchManagementBundle:Query:query }
+
+elastic_search_management_Query_gettypesdrowdown:
+    pattern: /query_tool/get_types_dropdown
+    defaults: { _controller: ElasticSearchManagementBundle:Query:getTypesDropdown }
