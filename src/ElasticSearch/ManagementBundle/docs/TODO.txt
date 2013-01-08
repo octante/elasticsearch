@@ -1,7 +1,7 @@
 TODO
 
 - AJAX pagination in queries module
-- Refactoring of Queries module code
+- Complete query tool template
 - Explain module (convert to an option of queries module)
 
 * Query module
