@@ -17,9 +17,14 @@ use Elastica_Client;
 
 class IndexController extends Controller
 {
+    /**
+     * @var index_name
+     */
     protected $index_name;
 
     /**
+     * List All cluster indices
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction ()
@@ -32,19 +37,26 @@ class IndexController extends Controller
             'tab'           => 'indice',
             'page_title'    => 'Indices List'
         );
+
         return $this->render('ElasticSearchManagementBundle:Index:list.html.twig', $page_params);
     }
 
     /**
+     * Get indice stats page
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function statsAction (Request $request)
     {
         $index_stats = $this->getIndexObject($request)->getStats()->getData();
         $response = array();
+
         if (isset($index_stats['_all']['indices'][$this->index_name])) {
+
             $index_stats = $index_stats['_all']['indices'][$this->index_name]['primaries'];
+
             $response = array('store'   => $index_stats['store'],
                               'docs'    => $index_stats['docs'],
                               'indexing'=> $index_stats['indexing'],
@@ -58,26 +70,35 @@ class IndexController extends Controller
             'tab'           => 'indice',
             'page_title'    => 'Indices Stats > ' . $this->index_name
         );
+
         return $this->render('ElasticSearchManagementBundle:Index:stats.html.twig', $page_params);
     }
 
     /**
+     * Load indice mapping page
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function mappingAction (Request $request)
     {
         $index_mapping = $this->getIndexObject($request)->getMapping();
+
         $page_params = array(
             'types_mapping' => $index_mapping[$this->index_name],
             'tab'           => 'indice',
             'page_title'    => 'Indices Mapping > ' . $this->index_name
         );
+
         return $this->render('ElasticSearchManagementBundle:Index:mapping.html.twig', $page_params);
     }
 
     /**
+     * Load indice optimize popup and optimize it if necessary
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function optimizeAction (Request $request)
@@ -106,7 +127,10 @@ class IndexController extends Controller
     }
 
     /**
+     * Do an indice snapshot, this feature is not developed yet
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function snapshotAction (Request $request)
@@ -118,9 +142,17 @@ class IndexController extends Controller
             'tab'           => 'indice',
             'page_title'    => 'Indices Snapshot > lorem ipsum'
         );
+
         return $this->render('ElasticSearchManagementBundle:Index:snapshot.html.twig', $page_params);
     }
 
+    /**
+     * Load indice delete popup and delete it if necessary
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function deleteAction (Request $request)
     {
         $result = null;
@@ -149,7 +181,10 @@ class IndexController extends Controller
     }
 
     /**
+     * Return an Elastica_Index object
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \ElasticSearch\ManagementBundle\Resources\Lib\Elastica\Index
      */
     protected function getIndexObject (Request $request)
@@ -159,6 +194,8 @@ class IndexController extends Controller
     }
 
     /**
+     * Set class variable indice_name from template value
+     *
      * @param $request
      */
     protected function setIndexName ($request)

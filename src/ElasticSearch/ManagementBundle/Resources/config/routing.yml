@@ -64,4 +64,4 @@ elastic_search_management_Query_query:
 
 elastic_search_management_Query_gettypesdrowdown:
     pattern: /query_tool/get_types_dropdown
-    defaults: { _controller: ElasticSearchManagementBundle:Query:getTypesDropdown }
+    defaults: { _controller: ElasticSearchManagementBundle:Query:getTypesDropdownAjax }

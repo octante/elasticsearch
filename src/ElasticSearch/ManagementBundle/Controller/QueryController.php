@@ -1,5 +1,7 @@
 <?php
 /**
+ * Query tool
+ *
  * User: isselguberna
  * Date: 26/12/12
  */
@@ -13,42 +15,56 @@ use Elastica_Client;
 
 class QueryController extends Controller
 {
-    protected $aQuery;
+    /**
+     * @var executed_query
+     */
+    protected $executed_query;
 
+    /**
+     *  Load query tool page and execute the query if necessary
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function queryAction (Request $request)
     {
         $query      = $request->request->get('query');
         $from       = $request->request->get('from');
         $index_name = $request->request->get('index_name');
         $type_name  = $request->request->get('type_name');
+        $limit      = ($request->request->get('limit') != '' && $request->request->get('limit') < 200)
+                            ? $request->request->get('limit')
+                            : 50; // Limit results to 50
 
-        // Limit results to 50
-        $limit  = ($request->request->get('limit') != '' && $request->request->get('limit') < 200) ? $request->request->get('limit') : 50;
-        $fields = array();
         $page_params = array(
             'query'                => $query,
             'tab'                  => 'query',
             'page_title'           => 'Query Tool',
             'index_name'           => $index_name,
-            'index_filter_options' => $this->getIndices()
+            'index_filter_options' => $this->getIndices(),                   // Load indices to dropdown
+            'type_filter_options'  => $this->getIndiceTypes($index_name),    // Load types to dropdown
+            'not_selected_indice'  => (empty($index_name))                   // Don't load types dropdown if no indice is selected
         );
 
         if ($query != '') {
-            $this->aQuery = json_decode($query, true);
+            $this->executed_query = json_decode($query, true);
 
             if ($from != '')   $this->addExtraParams(array('from' => $from));
             if ($limit != '')  $this->addExtraParams(array('size' => $limit));
 
-            $exists_fields = (isset($this->aQuery['fields']));
+            $exists_fields = (isset($this->executed_query['fields']));
 
             $url = '';
             $url .= ($index_name != '') ? '/' . $index_name : '';
             $url .= ($type_name != '') ? '/' . $type_name : '';
 
-            $request = (new Query_Request(new Elastica_Client(), $url . '/_search', 'POST', array(), $this->aQuery))->send()->getData();
+            $request = (new Query_Request(new Elastica_Client(), $url . '/_search', 'POST', array(), $this->executed_query))->send()->getData();
 
             $hits         = $request['hits']['hits'];
             $total        = $request['hits']['total'];
+            $fields       = array();
+
             if ($total > 0 && count($hits) > 0) {
                 foreach ($hits as $key => $hit) {
                     $results_list = (!$exists_fields) ? $hit['_source'] : $hit['fields'];
@@ -71,8 +87,6 @@ class QueryController extends Controller
             $page_params['limit']           = $limit;
             $page_params['indice_name']     = $index_name;
             $page_params['type_name']       = $type_name;
-
-            $page_params = array_merge($page_params, $this->getIndiceTypes($index_name));
         }
 
         return $this->render('ElasticSearchManagementBundle:Query:query.html.twig', $page_params);
@@ -82,13 +96,14 @@ class QueryController extends Controller
      * Ajax request to return types dropdown
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getTypesDropdownAction (Request $request)
+    public function getTypesDropdownAjaxAction (Request $request)
     {
         $indice_name = $request->query->get('indice_name');
 
-        $page_params = $this->getIndiceTypes($indice_name);
+        $page_params['type_filter_options'] = $this->getIndiceTypes($indice_name);
 
         return $this->render('ElasticSearchManagementBundle:Query:type_dropdown.html.twig', $page_params);
     }
@@ -101,7 +116,7 @@ class QueryController extends Controller
     private function addExtraParams($params)
     {
         foreach ($params as $field => $value) {
-            $this->aQuery[$field] = $value;
+            $this->executed_query[$field] = $value;
         }
     }
 
@@ -126,10 +141,13 @@ class QueryController extends Controller
      * Return page params related to type dropdown
      *
      * @param $indice_name
+     *
      * @return array
      */
     private function getIndiceTypes ($indice_name)
     {
+        $indice_types = array();
+
         if ('' != $indice_name) {
             if ($indice_name != '') {
                 $indice_mapping = (new \Elastica_Index(new \Elastica_Client(), $indice_name))->getMapping();
@@ -139,14 +157,8 @@ class QueryController extends Controller
             } else {
                 $indice_types = array();
             }
-
-            $page_params = array (
-                'type_filter_options' => $indice_types
-            );
-        } else {
-            $page_params['no_index'] = true;
         }
 
-        return $page_params;
+        return $indice_types;
     }
 }

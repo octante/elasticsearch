@@ -15,45 +15,66 @@ use Elastica_Cluster;
 
 class NodeController extends Controller
 {
-    private $node_name;
+    /**
+     * @var node_name
+     */
+    protected $node_name;
 
+
+    /**
+     * Load index page
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
         return $this->render('ElasticSearchManagementBundle:Node:index.html.twig');
     }
 
     /**
+     * List all nodes in a cluster
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction ()
     {
         $node_names = (new \Elastica_Cluster(new \Elastica_Client()))->getNodeNames();
+
         $page_params = array(
             'nodes'      => $node_names,
             'tab'        => 'node',
             'page_title' => 'Nodes List'
         );
+
         return $this->render('ElasticSearchManagementBundle:Node:list.html.twig', $page_params);
     }
 
     /**
+     * Load node info page
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function infoAction (Request $request)
     {
         $this->getNodeName($request);
         $node_info = $this->getNodeObject($this->node_name)->getInfo()->getData();
+
         $page_params = array(
             'node'          => $node_info,
             'tab'           => 'node',
             'page_title'    => 'Node Information > ' . $this->node_name
         );
+
         return $this->render('ElasticSearchManagementBundle:Node:info.html.twig', $page_params);
     }
 
     /**
+     * Load node stats page
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function statsAction (Request $request)
@@ -77,11 +98,15 @@ class NodeController extends Controller
             'tab'            => 'node',
             'page_title'     => 'Node stats > ' . $this->node_name
         );
+
         return $this->render('ElasticSearchManagementBundle:Node:stats.html.twig', $page_params);
     }
 
     /**
+     * Load node hotthreads page
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function hotthreadsAction (Request $request)
@@ -100,6 +125,8 @@ class NodeController extends Controller
     }
 
     /**
+     * Set class variable node_name from template value
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      */
     private function getNodeName (Request $request)
@@ -108,7 +135,10 @@ class NodeController extends Controller
     }
 
     /**
+     * Get Elastica_Node object
+     *
      * @param string $node_name
+     *
      * @return \Elastica_Node
      */
     private function getNodeObject ($node_name)

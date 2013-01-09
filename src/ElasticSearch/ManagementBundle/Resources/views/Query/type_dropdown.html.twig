@@ -1,6 +1,6 @@
 {% import 'ElasticSearchManagementBundle::Helpers/form.html.twig' as forms %}
 
-{% if (no_index is not defined) or (no_index != true) %}
+{% if (not_selected_indice is not defined) or (not_selected_indice == false) %}
     <label>Type</label>
     {{ forms.select('type_name', type_name|default(""), type_filter_options) }}
 {% endif %}

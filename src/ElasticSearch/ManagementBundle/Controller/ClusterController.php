@@ -14,16 +14,17 @@ use Elastica_Client;
 
 class ClusterController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('ElasticSearchManagementBundle:Cluster:index.html.twig');
-    }
 
+    /**
+     * Load cluster state page and show related data
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function stateAction ()
     {
         $cluster_state = $this->getClusterObject()->getState();
 
-        $result = array();
+        $result                          = array();
         $result['cluster_name']          = isset($cluster_state['cluster_name']) ? $cluster_state['cluster_name'] : '';
         $result['master_node']           = isset($cluster_state['master_node']) ? $cluster_state['master_node'] : '';
         $result['blocks']                = isset($cluster_state['blocks']) ? $cluster_state['blocks'] : array();
@@ -45,6 +46,11 @@ class ClusterController extends Controller
         return $this->render('ElasticSearchManagementBundle:Cluster:state.html.twig', $page_params);
     }
 
+    /**
+     * Load cluster health page and show related data
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function healthAction ()
     {
         $elastica_cluster = $this->getClusterObject()->getHealth();
@@ -57,6 +63,11 @@ class ClusterController extends Controller
         return $this->render('ElasticSearchManagementBundle:Cluster:health.html.twig', $page_params);
     }
 
+    /**
+     * Return an Elastic_Cluster object
+     *
+     * @return \ElasticSearch\ManagementBundle\Resources\Lib\Elastica\Cluster
+     */
     private function getClusterObject ()
     {
         return new Elastica_Cluster(new Elastica_Client());
